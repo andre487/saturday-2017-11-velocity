@@ -314,19 +314,20 @@ for (var i = 0; i < x; i++) {
 -------
 
 <!-- left -->
-- {:.github}andre487
-- {:.mail}andre487@yandex-team.ru
-- {:.twitter}@andre487
+- {:.skype}author
+- {:.mail}author@yandex-team.ru
+- {:.github}author
 
 <!-- right -->
-- {:.phone}Nexus 5X
-- {:.telegram}andre487
+- {:.twitter}@author
+- {:.facebook}author
 
 <!-- 
 
-- {:.mail}andre487@yandex-team.ru
-- {:.phone}Nexus 5X
-- {:.github}andre487
+- {:.mail}author@yandex-team.ru
+- {:.phone}+7-999-888-7766
+- {:.github}author
+- {:.bitbucket}author
 - {:.twitter}@author
 - {:.telegram}author
 - {:.skype}author
