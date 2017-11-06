@@ -3,9 +3,22 @@
 layout: yandex2
 
 style: |
-    /* собственные стили можно писать здесь!! */
+    .center {
+        text-align: center;
+    }
+    
+    .center img {
+        margin: 0 auto;
+    }
 
-
+    .video-container {
+        height: 90%;
+        text-align: center;
+    }
+    
+    .video {
+        height: 100%;
+    }
 ---
 
 # ![](themes/yandex2/images/logo-{{ site.presentation.lang }}.svg){:.logo}
@@ -31,253 +44,39 @@ style: |
 
 </div>
 
-## Название раздела
+## Поисковая выдача
 {:.section}
 
-### Верхний колонтитул
+### Наш проект
 
-## Длинная цитата переносится на несколько строк
-{:.blockquote}
+## SERP (Search Engine Result Page)
+{:.section}
 
-### Источник
+### Наш проект
 
-## Заголовок
+## SERP
 
-Основной текст
+**Одна страница**
 
-**Ключевая мысль**
+**Большая вариативность**
 
-- Маркированный список
-- Маркированный список
+**Больше 50 разработчиков**
 
-1. Нумерованный список
-2. Нумерованный список
+## SERP
 
-### Источник
+<div class="video-container">
+    <video class="video" autoplay loop>
+        <source src="serp-screens/movie.mp4">
+    </video>
+</div>
 
-## Заголовок
+## Как мы работаем?
+{:.section}
 
-Элементы появляются по очереди
+## Колесо скорости
+{:.images .center}
 
-1. {:.next}Нумерованный список
-2. {:.next}Нумерованный список
-3. {:.next}Нумерованный список
-4. {:.next}Нумерованный список
-
-
-### Источник
-
-## Заголовок
-{:.images}
-
-![](themes/yandex2/images/images-one.svg)
-
-### Источник
-
-## Заголовок
-{:.images .two}
-
-![](themes/yandex2/images/images-two.svg)
-*Текст*
-
-![](themes/yandex2/images/images-two.svg)
-*Текст*
-
-### Источник
-
-## Заголовок
-{:.images .three}
-
-![](themes/yandex2/images/images-three.svg)
-*Текст*
-
-![](themes/yandex2/images/images-three.svg)
-*Текст*
-
-![](themes/yandex2/images/images-three.svg)
-*Текст*
-
-### Источник
-
-## Заголовок
-
-![](themes/yandex2/images/image-right.svg)
-{:.image-right}
-
-Основной текст
-
-**Ключевая мысль**
-
-- Маркированный список
-- Маркированный список
-
-1. Нумерованный список
-2. Нумерованный список
-
-### Источник
-
-## Заголовок
-
-<!-- библиотека пиктограмм https://patterns.yandex-team.ru/presentations?typeIn=icons -->
-
-![](themes/yandex2/images/icons.svg)
-{:.icon-left}
-
-Основной текст
-
-**Ключевая мысль**
-
-- Маркированный список
-- Маркированный список
-
-1. Нумерованный список
-2. Нумерованный список
-
-### Источник
-
-## Заголовок
-{:.icons}
-
-<!-- библиотека пиктограмм https://patterns.yandex-team.ru/presentations?typeIn=icons -->
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-### Источник
-
-## Заголовок
-{:.icons .four}
-
-<!-- библиотека пиктограмм https://patterns.yandex-team.ru/presentations?typeIn=icons -->
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-### Источник
-
-## Заголовок
-{:.icons .five}
-
-<!-- библиотека пиктограмм https://patterns.yandex-team.ru/presentations?typeIn=icons -->
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-![](themes/yandex2/images/icons.svg)
-*Текст*
-
-### Источник
-
-## Заголовок будет скрыт
-{:.fullscreen}
-
-![](themes/yandex2/images/images-fullscreen.svg)
-
-## Заголовок будет скрыт
-{:.fullscreen}
-
-![](themes/yandex2/images/images-fullscreen.svg)
-
-<figure markdown="1">
-Текст
-</figure>
-
-## Таблица
-
-|  Locavore     |  Umami       |  Helvetica |  Vegan     |
-+---------------|--------------|------------|------------+
-|  Fingerstache<br/>The second line |  Kale        |  Chips     |  Keytar    |
-|  Sriracha     |  Gluten-free |  Ennui     |  Keffiyeh  |
-|  Thundercats  |  Jean        |  Shorts    |  Biodiesel |
-|* Terry        |* Richardson  |* Swag      |* Blog      |
-
-Текст
-
-### Источник
-
-## Исходный код (html)
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Shower</title> <!--Comment-->
-    <link rel="stylesheet" href="screen.css">
-</head>
-<body>Hello!</body>
-</html>
-```
-
-## Исходный код (js)
-
-Пояснение для кода.
-
-```js
-var i, j, over, data = new Array(2, 34.12, 4.7, 0, 234, 5);
-var test = false;
-
-for (i = 1; i < data.length; i++) {
-    over = data[i]; 
-    for (j = i - 1; j >= 0 && data[j] > over; j--) {
-        data[j + 1] = data[j];
-    }
-    data[j + 1] = over;
-}
-alert(data.join(','));
-```
-
-## Исходный код (css)
-
-```css
-.head {
-    background-color: yellow;
-}
-
-.head__logo {
-    background-image: url(images/logo.svg);
-}
-
-#test, body {
-    font-weight: bold;
-}
-
-```
-
-## Этот заголовок будет скрыт
-{:.fullscreen}
-
-```js
-// исходный код (на весь экран)
-
-var x = 10;
-for (var i = 0; i < x; i++) {
-    console.log('hello!');
-}
-```
+![](diagrams/velocity-cycle.svg)
 
 ## Контакты 
 {:.contacts}
