@@ -196,6 +196,51 @@ requestAnimationFrame(() => {
 |  Время создания AJAX JSON, мс |  84      |  85           |  1        |
 
 
+## Время шаблонизации и размер страницы
+
+**Проблема – большая вариативность одной страницы**
+
+**Решение – случайный набор реальных данных**
+
+## Сбор данных
+
+```sql
+INSERT INTO
+  `home/velocity/query_params`
+SELECT
+    `query_params`
+FROM
+    RANGE(`access-log`, `2017-11-01`, `2017-11-07`)
+ORDER BY
+  RANDOM(*)
+LIMIT
+    10000
+;
+```
+
+## Сбор данных
+
+```js
+const queryParams = await getQueryParams('home/velocity/query_params')
+const dataSet = await Promise.all(queryParams.map(paramsSet => {
+    return makeJsonRequest('yandex.ru/search', paramsSet)
+}))
+saveDataSet(dataSet)
+```
+
+## Измерения для пулл-реквеста
+
+```js
+const dataSet = await getDataSet()
+const baseResults = await Promise.all(dataSet.map(data => {
+    return makeHtmlRequest('master.beta.yandex.ru/search', data)
+}))
+const prResults = await Promise.all(dataSet.map(data => {
+    return makeHtmlRequest('pr-487.beta.yandex.ru/search', data)
+}))
+compare(baseResults, prResults)
+```
+
 ## Контакты 
 {:.contacts}
 
