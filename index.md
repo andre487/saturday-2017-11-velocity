@@ -78,6 +78,99 @@ style: |
 
 ![](diagrams/velocity-cycle.svg)
 
+## Онлайн-измерения
+
+RUM – real user measurement
+
+**Navigation Timing API**
+
+**Resource Timing API**
+
+**Paint Timing API**
+
+**High Resolution Time – собственные таймеры**
+
+## Navigation Timing API
+
+```js
+const tm = performance.timing
+const loadMetrics = {
+    wait: tm.domainLookupStart - tm.navigationStart,
+    dns: tm.domainLookupEnd - tm.domainLookupStart,
+    tcp: tm.connectEnd - tm.connectStart,
+    tls: tm.connectEnd - tm.secureConnectionStart,
+    ttfb: tm.responseStart - tm.connectEnd,
+    download: tm.responseEnd - tm.responseStart,
+    domLoading: tm.domLoading - tm.responseStart,
+    domInteractive: tm.domInteractive - tm.responseStart,
+    domLoaded: tm.domContentLoadedEventStart - tm.responseStart,
+    domInit: tm.domContentLoadedEventEnd - tm.domContentLoadedEventStart,
+}
+```
+
+## Resource Timing API
+
+```js
+const entry = performance.getEntriesByName('https://yastatic.net/jquery.js')[0]
+const resTiming = {
+    cacheHit: entry.transferSize === 0,
+    wait: entry.domainLookupStart - entry.startTime,
+    dns: entry.domainLookupEnd - entry.domainLookupStart,
+    // …
+    transferSize: entry.transferSize,
+    duration: entry.duration,
+}
+```
+
+## Paint Timing API
+
+```js
+function getFirstPaintTime() {
+    const paints = performance.getEntriesByType('paint')
+    for (let paint of paints) {
+        if (paint.name === 'first-contentful-paint') {
+            return paint.startTime  
+        }
+    }
+}
+```
+
+## Кастомные API для первой отрисовки
+
+```js
+function getFirstPaintTime() {
+    if (typeof chrome !== 'undefined' && typeof chrome.loadTimes === 'function') {
+        return chrome.loadTimes().firstPaintTime * 1000
+    }
+
+    if ('msFirstPaint' in performance.timing) {
+        return performance.timing.msFirstPaint
+    }
+}
+```
+
+## Таймеры
+
+```js
+BEM.channel('i-bem').onFirst('init', () => {
+    Rum.sendTimeMark('client-framework-inited', performance.now())
+})
+```
+
+## Оценка отрисовки контента
+
+```html
+<script>
+requestAnimationFrame(() => {
+    Rum.sendTimeMark('content-paint-low', performance.now())
+    requestAnimationFrame(() => {
+        Rum.sendTimeMark('content-paint-high', performance.now())
+    })
+})
+</script>
+<div class="content">Hello, world!</div>
+```
+
 ## Контакты 
 {:.contacts}
 
