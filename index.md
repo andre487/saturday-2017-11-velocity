@@ -241,6 +241,45 @@ const prResults = await Promise.all(dataSet.map(data => {
 compare(baseResults, prResults)
 ```
 
+## Измерения на потоке и поиск узких мест
+
+Время до инициализации клиентского фреймворка:
+
+![](diagrams/velocity-plot.png)
+
+## Измерения на потоке и поиск узких мест
+
+```sql
+SELECT 
+    PERCENTILE(domLoading, 95) AS domLoadingP95,
+    PERCENTILE(serpParseStart, 95) AS serpParseStartP95,
+    PERCENTILE(serpParseEnd, 95) AS serpParseEndP95,
+    PERCENTILE(domLoaded, 95) AS domLoadedP95,
+    PERCENTILE(clientFrameworkInited, 95) AS clientFrameworkInitedP95
+FROM
+    `home/velocity/dataset/2017-11-01`
+;
+```
+
+## Измерения на потоке и поиск узких мест
+
+| Метрика                   | Значение |
++---------------------------|----------+
+| domLoadingP95             |     500  |
+| serpParseStartP95         |     1500 |
+| serpParseEndP95           |     2520 |
+| domLoadedP95              |     6000 |
+| clientFrameworkInitedP95  |     7000 | 
+
+## Оптимизация
+
+```html
+<div class="serp-header">
+    <!-- … -->
+</div>
+<link rel="preload" href="main.js" as="script">
+```
+
 ## Контакты 
 {:.contacts}
 
