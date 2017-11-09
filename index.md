@@ -212,13 +212,13 @@ requestAnimationFrame(() => {
 INSERT INTO
   `home/velocity/query_params`
 SELECT
-    `query_params`
+  `query_params`
 FROM
-    RANGE(`access-log`, `2017-11-01`, `2017-11-07`)
+  RANGE(`access-log`, `2017-11-01`, `2017-11-07`)
 ORDER BY
   RANDOM(*)
 LIMIT
-    10000
+  10000
 ;
 ```
 
