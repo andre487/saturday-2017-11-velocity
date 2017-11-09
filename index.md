@@ -10,6 +10,14 @@ style: |
     .center img {
         margin: 0 auto;
     }
+    
+    .image-container {
+        height: 100%;
+    }
+    
+    .image {
+        height: 90%;
+    }
 
     .video-container {
         height: 90%;
@@ -19,6 +27,10 @@ style: |
     .video {
         height: 100%;
     }
+    
+    .video-container.right {
+        float: right
+    }
 ---
 
 # ![](themes/yandex2/images/logo-{{ site.presentation.lang }}.svg){:.logo}
@@ -27,11 +39,6 @@ style: |
 {:.title}
 
 ### ![](themes/yandex2/images/title-logo-{{ site.presentation.lang }}.svg){{ site.presentation.service }}
-
-{% if site.presentation.nda %}
-![](themes/yandex2/images/title-nda.svg)
-{:.nda}
-{% endif %}
 
 <div class="authors">
 {% if site.author %}
@@ -56,27 +63,35 @@ style: |
 
 ## SERP
 
-**Одна страница**
-
-**Большая вариативность**
-
-**Больше 50 разработчиков**
-
-## SERP
-
-<div class="video-container">
+<div class="video-container right">
     <video class="video" autoplay loop>
         <source src="serp-screens/movie.mp4">
     </video>
 </div>
 
-## Как мы работаем?
+**Одна страница**
+
+**Большая вариативность**
+
+**Три платформы**
+
+**Больше 50 разработчиков**
+
+**Разделение на виртуальные команды**
+
+## Работа над фичей
+{:.center}
+
+<div class="image-container">
+    <img src="diagrams/velocity-cycle.svg" class="image">
+</div>
+
+## Метрики
 {:.section}
 
-## Колесо скорости
-{:.images .center}
+## Метрики
 
-![](diagrams/velocity-cycle.svg)
+Метрики – способ получения обратной связи после разработки и тестирования
 
 ## Онлайн-измерения
 
@@ -94,31 +109,24 @@ RUM – real user measurement
 
 ```js
 const tm = performance.timing
-const loadMetrics = {
-    wait: tm.domainLookupStart - tm.navigationStart,
-    dns: tm.domainLookupEnd - tm.domainLookupStart,
-    tcp: tm.connectEnd - tm.connectStart,
-    tls: tm.connectEnd - tm.secureConnectionStart,
-    ttfb: tm.responseStart - tm.connectEnd,
+const documentMetrics = {
+    tcpHandshake: tm.connectEnd - tm.connectStart,
+    firstByte: tm.responseStart - tm.connectEnd,
     download: tm.responseEnd - tm.responseStart,
-    domLoading: tm.domLoading - tm.responseStart,
-    domInteractive: tm.domInteractive - tm.responseStart,
     domLoaded: tm.domContentLoadedEventStart - tm.responseStart,
-    domInit: tm.domContentLoadedEventEnd - tm.domContentLoadedEventStart,
-}
+    // …
+};
 ```
 
 ## Resource Timing API
 
 ```js
 const entry = performance.getEntriesByName('https://yastatic.net/jquery.js')[0]
-const resTiming = {
+const resourceMetrics = {
     cacheHit: entry.transferSize === 0,
-    wait: entry.domainLookupStart - entry.startTime,
-    dns: entry.domainLookupEnd - entry.domainLookupStart,
+    tcpHandshake: entry.connectEnd - entry.connectStart,
+    download: entry.responseEnd - entry.responseStart,
     // …
-    transferSize: entry.transferSize,
-    duration: entry.duration,
 }
 ```
 
@@ -157,7 +165,7 @@ BEM.channel('i-bem').onFirst('init', () => {
 })
 ```
 
-## Оценка отрисовки контента
+## Оценка времени отрисовки контента
 
 ```html
 <script>
@@ -173,15 +181,12 @@ requestAnimationFrame(() => {
 
 ## АБ-тестирование
 
-|  Метрика                 |  Контроль, мс    | Эксперимент, мс |     Δ, мс |  MW-тест, % |
-+--------------------------|------------------|-----------------|-----------|-------------+
-|  TTFB                    |  380             |  375            |  -5       |  20         |
-|  TTFP                    |  420             |  450            |  30       |  50         |
-|  Download                |  878             |  932            |  54       |  **99.5**   |
-|  Cont. paint low         |  900             |  950            |  50       |  **100**    |
-|  Cont. paint high        |  1000            |  1100           |  100      |  98         |
-|  Main.JS duration        |  300             |  400            |  100      |  **100**    |
-|  JS inited               |  1200            |  1400           |  200      |  **99.9**   |
+| Метрика               | Контроль,&nbsp;мс | Эксперимент,&nbsp;мс | Δ,&nbsp;мс | MW-тест  |
++-----------------------|-------------------|----------------------|------------|----------+
+| Первый байт           | 380               |  375                 | -5         | 20       |
+| Первая&nbsp;отрисовка | 420               |  450                 | 30         | 50       |
+| Загрузка              | 878               |  932                 | 54         | **99.5** |
+| Инициализация&nbsp;JS | 1200              |  1400                | 200        | **99.9** |
 
 
 ## Офлайн-измерения
@@ -191,9 +196,7 @@ requestAnimationFrame(() => {
 |  Размер html, Кб (gzip)       |  80.2    |  100.2        |  **20**   |
 |  Размер AJAX JSON, Кб  (gzip) |  15.3    |  15.8         |  0.5      |
 |  Размер main.js, Кб  (br)     |  90      |  95           |  **5**    |
-|  Размер main.css, Кб  (br)    |  15.4    |  15.4         |  0        |
-|  Время шаблонизации html, мс  |  123     |  126          |  3        |
-|  Время создания AJAX JSON, мс |  84      |  85           |  1        |
+|  Время шаблонизации, мс       |  123     |  126          |  3        |
 
 
 ## Время шаблонизации и размер страницы
@@ -241,18 +244,35 @@ const prResults = await Promise.all(dataSet.map(data => {
 compare(baseResults, prResults)
 ```
 
+## Результат измерений для пулл-реквеста
+
+|  Метрика                      |  База    | Пулл-реквест  |     Δ     |
++-------------------------------|----------|---------------|-----------|
+|  Размер html, Кб (gzip)       |  80.2    |  100.2        |  **20**   |
+|  Размер AJAX JSON, Кб  (gzip) |  15.3    |  15.8         |  0.5      |
+|  Размер main.js, Кб  (br)     |  90      |  95           |  **5**    |
+|  Время шаблонизации, мс       |  123     |  126          |  3        |
+
 ## Измерения на потоке и поиск узких мест
+{:.section}
 
-Время до инициализации клиентского фреймворка:
+## Время до инициализации JS, мс
 
-![](diagrams/velocity-plot.png)
+<div class="image-container">
+    <img src="diagrams/velocity-plot.png" class="image">
+</div>
 
-## Измерения на потоке и поиск узких мест
+## Время до инициализации JS, мс
+
+<div class="image-container">
+    <img src="diagrams/velocity-plot-arr-1.png" class="image">
+</div>
+
+## Поиск узких мест
 
 ```sql
 SELECT 
     PERCENTILE(domLoading, 95) AS domLoadingP95,
-    PERCENTILE(serpParseStart, 95) AS serpParseStartP95,
     PERCENTILE(serpParseEnd, 95) AS serpParseEndP95,
     PERCENTILE(domLoaded, 95) AS domLoadedP95,
     PERCENTILE(clientFrameworkInited, 95) AS clientFrameworkInitedP95
@@ -261,15 +281,14 @@ FROM
 ;
 ```
 
-## Измерения на потоке и поиск узких мест
+## Поиск узких мест
 
-| Метрика                   | Значение |
-+---------------------------|----------+
-| domLoadingP95             |     500  |
-| serpParseStartP95         |     1500 |
-| serpParseEndP95           |     2520 |
-| domLoadedP95              |     6000 |
-| clientFrameworkInitedP95  |     7000 | 
+| Метка времени             | Значение, мс |
++---------------------------|--------------+
+| domLoadingP95             |     500      |
+| serpParseEndP95           |     2520     |
+| domLoadedP95              |     6000     |
+| clientFrameworkInitedP95  |     7000     | 
 
 ## Оптимизация
 
@@ -280,10 +299,11 @@ FROM
 <link rel="preload" href="main.js" as="script">
 ```
 
-## Колесо скорости
-{:.images .center}
+## Перепроверяем
 
-![](diagrams/velocity-cycle.svg)
+<div class="image-container">
+    <img src="diagrams/velocity-plot-arr-2.png" class="image">
+</div>
 
 ## Интересные оптимизации
 
@@ -325,7 +345,7 @@ FROM
 
 **Прогрессивная загрузка страницы**
 
-## Прогрессивная загрузка страницы
+## Прогрессивная загрузка страницы (3G slow)
 
 <div class="video-container">
     <video class="video" autoplay loop>
@@ -377,9 +397,7 @@ FROM
 
 ## Отказались
 
-**Критические стили** &nbsp;&nbsp;&nbsp;&nbsp;возможно, вернёмся к этой идее
-
-**Кэш в LocalStorage** &nbsp;&nbsp;&nbsp;&nbsp;не вернёмся к этой идее
+**Кэш в LocalStorage**
 
 ## Продолжение следует…
 {:.section}
