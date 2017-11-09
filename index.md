@@ -17,6 +17,7 @@ style: |
     
     .image {
         height: 90%;
+        max-width: 100%;
     }
 
     .video-container {
