@@ -116,7 +116,7 @@ const documentMetrics = {
     download: tm.responseEnd - tm.responseStart,
     domLoaded: tm.domContentLoadedEventStart - tm.responseStart,
     // …
-};
+}
 ```
 
 ## Resource Timing API
