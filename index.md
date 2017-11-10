@@ -19,6 +19,11 @@ style: |
         height: 90%;
         max-width: 100%;
     }
+    
+    .image-container.full .image {
+        height: 100%;
+        margin-top: -10%;
+    }
 
     .video-container {
         height: 90%;
@@ -27,6 +32,11 @@ style: |
     
     .video {
         height: 100%;
+    }
+    
+    .video-container.full {
+        height: 100%;
+        margin-top: -10%;
     }
     
     .video-container.right {
@@ -64,7 +74,7 @@ style: |
 
 ## SERP
 
-<div class="video-container right">
+<div class="video-container full right">
     <video class="video" autoplay loop>
         <source src="serp-screens/movie.mp4">
     </video>
@@ -80,10 +90,80 @@ style: |
 
 **Разделение на виртуальные команды**
 
+## SERP
+
+Скорость должна быть частью производственного процесса
+
 ## Работа над фичей
+
+**Pull request**
+
+## Работа над фичей
+
+**Pull request**
+
+**Офлайновые метрики**
+
+## Работа над фичей
+
+**Pull request**
+
+**Офлайновые метрики**
+
+****
+
+**АБ-тестирование**
+
+## Работа над фичей
+
+**Pull request**
+
+**Офлайновые метрики**
+
+****
+
+**АБ-тестирование**
+
+**Релиз на всю аудиторию**
+
+## Работа над фичей
+
+**Pull request**
+
+**Офлайновые метрики**
+
+****
+
+**АБ-тестирование**
+
+**Релиз на всю аудиторию**
+
+****
+
+**Измерения на потоке, анализ данных**
+
+## Работа над фичей
+
+**Pull request**
+
+**Офлайновые метрики**
+
+****
+
+**АБ-тестирование**
+
+**Релиз на всю аудиторию**
+
+****
+
+**Измерения на потоке, анализ данных**
+
+**Оптимизации**
+
+## &nbsp;
 {:.center}
 
-<div class="image-container">
+<div class="image-container full">
     <img src="diagrams/velocity-cycle.svg" class="image">
 </div>
 
@@ -97,6 +177,8 @@ style: |
 ## Онлайн-измерения
 
 RUM – real user measurement
+
+Источники данных:
 
 **Navigation Timing API**
 
@@ -288,8 +370,8 @@ FROM
 +---------------------------|--------------+
 | domLoadingP95             |     500      |
 | serpParseEndP95           |     2520     |
-| domLoadedP95              |     6000     |
-| clientFrameworkInitedP95  |     7000     | 
+| domLoadedP95              |     4000     |
+| clientFrameworkInitedP95  |     5100     | 
 
 ## Оптимизация
 
@@ -304,6 +386,8 @@ FROM
 
 <div class="image-container">
     <img src="diagrams/velocity-plot-arr-2.png" class="image">
+    
+    <span style="font-size: 150px; position: absolute; bottom: 20px; left: 50%; margin-left: -300px">👍</span>
 </div>
 
 ## Интересные оптимизации
